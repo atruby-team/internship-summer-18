@@ -57,6 +57,7 @@ Cuối cùng , click vào nút màu xanh "Send pull request" để kết thúc k
 - Link, image 
 
 Link : sử dụng [title] (http://~)
+
 Image : sử dụng ![alt] (http://~)
 
 -List
