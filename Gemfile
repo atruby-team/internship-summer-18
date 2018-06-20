@@ -5,4 +5,4 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rubocop', '~> 0.57.2', require: false
+gem 'rubocop', '0.57.2', require: false
