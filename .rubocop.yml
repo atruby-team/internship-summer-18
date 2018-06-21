@@ -1,11 +1,12 @@
 AllCops:
   Exclude:
-    - db/schema.rb
+    - 'at-*/db/schema.rb'
+    - 'at-*/vendor/**/*'
+    - 'at-*/db/**/*'
+    - 'at-*/config/**/*'
+    - 'at-*/script/**/*'
+    - 'at-*/bin/**/*'
     - 'vendor/**/*'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - 'bin/**/*'
 
   Rails:
     Enabled: true
@@ -47,7 +48,7 @@ Style/NumericLiterals:
 Style/RedundantSelf:
   Enabled: false
 
-Style/SingleSpaceBeforeFirstArg:
+Layout/SpaceBeforeFirstArg:
   Enabled: false
 
 Style/MultilineOperationIndentation:
@@ -71,12 +72,12 @@ Metrics/CyclomaticComplexity:
 Metrics/LineLength:
   Max: 160
   Exclude:
-    - "db/migrate/*.rb"
+    - "at-*/db/migrate/*.rb"
 
 Metrics/MethodLength:
   Max: 30
   Exclude:
-    - "db/migrate/*.rb"
+    - "at-*/db/migrate/*.rb"
 
 Metrics/PerceivedComplexity:
   Max: 8
