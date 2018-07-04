@@ -62,9 +62,9 @@
 
 ### Exercise 2: Comment for the lines following:
 
-- a = 20 # biến a có giá trị bằng 20
-- b = 18 # biến b có giá trị bằng 18
-- c = a + b #biến c có giá trị bằng với tổng của biến a cộng với b
-- d = a * 3 + b #biến d có giá trị bằng tổng 3 lần của biến a cộng với biến b 
-- e = (c + d) / 2 #biến e có giá trị bằng tổng của biến c và d . chia cho 2
+- a = 20 # số tuổi của Quỳnh Hoa là 20
+- b = 18 # số tuổi của em Quỳnh Hoa là 18
+- c = a + b #số tuổi của mẹ Quỳnh Hoa bằng 2 chị em Quỳnh Hoa cộng lại
+- d = a * 3 + b # Số tuổi của ông ngoại Quỳnh Hoa bằng 3 lần tuổi Quỳnh Hoa cộng với tuổi của em Quỳnh Hoa 
+- e = (c + d) / 2 # Số tuổi bà nội Quỳnh Hoa bằng với trung bình cộng tuổi của mẹ và ông ngoại Quỳnh Hoa
  
