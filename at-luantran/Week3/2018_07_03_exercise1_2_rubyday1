@@ -1,0 +1,66 @@
+## W3 - D2 - LuanTran - Syntax, Data structure
+
+#### Exercise 1:
+##### Topic: Online store.
+ Classes:
+ -  Users:
+  * register : đăng kí tài khoản người dùng.
+  * edit_user : sửa thông tin người dùng.
+  * del_user : xóa người dùng.
+  * search_users : tìm kiếm người dùng. 
+  * login : đăng nhập.
+  * logout : đăng xuất.
+  * order : đặt hàng.
+  * reset_pass : Đặt lại mật khẩu khi bị mất.
+  * vote_service : đánh giá dịch vụ.
+  * Example name : admin, member, customer_01, ...
+ - Categories: 
+  * add_cat : thêm mới danh mục sản phẩm.
+  * edit_cat : sửa thông tin danh mục sản phẩm.
+  * del_cat : xóa danh mục sản phẩm.
+  * search_cat : tìm kiếm danh mục sản phẩm. 
+  * Example name : book, phone, toy, ...
+ -  Products:
+  * add_product : thêm mới sản phẩm.
+  * edit_product : sửa thông tin sản phẩm.
+  * del_product : xóa sản phẩm.
+  * search_products : tìm kiếm thông tin sản phẩm. 
+  * Example name :  iphone_4, sam_sung_note_7, ...
+ - Orders:
+  * edit_order : sửa thông tin đơn hàng.
+  * del_order : xóa đơn hàng.
+  * search_orders : tìm kiếm thông tin đơn hàng. 
+  * detail_order : xem chi tiết đơn hàng.
+  * change_status : thay đổi trạng thái đơn hàng.
+  * Example name :  order_01, order_02, ... 
+ - Bills
+  * detail_bill : xem chi tiết hóa đơn.
+  * del_bill : xóa hóa đơn.
+  * search_bills : tìm kiếm thông tin hóa đơn.
+  * Exmaple name : bill_01, bill_02, ... 
+ - Comments 
+  * add_cmt : bình luận sản phẩm.
+  * edit_cmt : sửa bình luận. 
+  * del_cmt: xóa bình luận.
+  * Example name : cmt_01, cmt_02, ...
+#### Exercise 2:
+- a = 20 
+``` ruby 
+Kẹo mềm có giá 20 đồng
+```
+- b = 18 
+``` ruby 
+Bánh bông lan có giá 18
+```
+- c = a + b 
+```ruby
+Giá của bánh bèo bằng tổng giá của kẹo mềm và bánh bông lan => 30 đồng
+```
+- d = a * 3 + b 
+```ruby
+Bánh pudding có giá bằng tổng của ba lân giá kẹo mềm và bánh bông lan => 78 đồng
+```                
+- e = (c + d) / 2 
+```ruby
+Bánh quy có giá bằng một nửa tổng giá của bánh bèo và bánh pudding => 58 đồng
+```
