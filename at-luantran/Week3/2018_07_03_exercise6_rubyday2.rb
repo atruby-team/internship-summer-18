@@ -13,5 +13,7 @@ puts a
 
 # Give a list of students with their scores, select all students have score greater or equal 8.
 c = [{ Bob: 7 }, { Smith: 8 }, { Kate: 9 }]
-c.each { |x| c.delete(x) if x.values[0] < 8 }
-puts c
+c.each do |x|
+  # c.delete(x) if x.values[0] < 8
+  x.values.each { |d| puts x if d >= 8 }
+end

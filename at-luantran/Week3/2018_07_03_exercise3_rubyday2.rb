@@ -1,5 +1,5 @@
 max = 0
-arr = [-1, 2, 3, 4]
+arr = [-5, -7, 4, 5, 8]
 b = arr.combination(3).to_a
 b.each do |x|
   c = x.reduce(1, :*)
@@ -7,3 +7,8 @@ b.each do |x|
 end
 
 puts max
+
+arr.sort!
+max1 = arr.last(3).reduce(1, :*)
+max1 = arr.first(2).reduce(1, :*) * arr.last if arr.first(2).reduce(1, :*) * arr.last > max1
+puts max1
