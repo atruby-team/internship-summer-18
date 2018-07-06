@@ -1,13 +1,9 @@
-puts "Nhap phan tu mang :"
-a = gets.to_i
-arr = []
-for i in 1..a
-  b = gets.to_i
-  arr.push(b)  
-end
-max = 0
-arr.combination(3) do |n|
-  b = n.reduce(1, :*)
-  max = b if b > max
-end
-puts "#{max}"  
+arr = [-5, -2, 3, 4]
+arr.sort!
+max1 = arr.first * arr[1] * arr.last
+max2 = arr.last * arr[arr.length - 2] * arr[arr.length - 3]
+max = if max1 > max2
+        max1
+      else max2
+      end
+puts max.to_s
