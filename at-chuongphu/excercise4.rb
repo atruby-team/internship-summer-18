@@ -1,15 +1,15 @@
 # ex1
 array = 'asianstech'.split("") 
 array.each do |x|
-    puts array.index(x) if array.count(x) == 1
-# end    
+ puts array.index(x) if array.count(x) == 1
+end    
 # # ex2
 def sumarr a
  check = a.all?{|x| x.is_a? Integer}
  if check == true
-	puts a.reduce(0,:+)
+  puts a.reduce(0,:+)
  else
-	puts "nil"
+  puts "nil"
  end
 end
 a= [1,2,4,5]
