@@ -1,5 +1,8 @@
-def sum_is_integer nums
-  nums.all?(Integer) ? nums.inject(0, :+) : false
+class Array
+  def sum
+    return self.inject { |s, i| s + i } if self.all? { |j| j.is_a?(Integer) }
+    nil
+  end
 end
 
-puts sum_is_integer [1 , 2, 3, 4]
+puts [1, 5, 3].sum

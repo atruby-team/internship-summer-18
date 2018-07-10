@@ -1,12 +1,14 @@
-def exist_string? string
-  if string.is_a? String
-    ck = string.chars.detect{ |e| string.count(e) > 1 }
-    ck ? string.index(ck) : -1
+def find_index(str)
+  if str.is_a? String
+    count = Hash.new(0)
+    arr = str.split('')
+    arr.each { |j| count[j] += 1 }
+    not_key = count.key(1)
+    return arr.index(not_key) if not_key
   else
-    puts "Input is not String !"
+    puts 'Input is not String !'
   end
+  -1
 end
 
-puts exist_string? "asiantech"
-puts exist_string? "rubyteam"
-
+puts find_index 'nguyen hoang quan'
