@@ -21,7 +21,7 @@ class Dictionary
     if result
       sleep 0.5
       result[1][:lookup] += 1
-      result[1][:history_lookup] = Time.new.strftime('%m/%d/%Y %H:%M:%S')
+      result[1][:history_lookup] = Time.current
       return result[1][:des]
     end
     nil
@@ -65,17 +65,20 @@ class Dictionary
   end
 
   def ck_favorite(arr, lookup, result)
-    unless lookup.max.zero?
-      @list_dictionary.values.each { |e| arr << e if e[:lookup] == lookup.max }
-      if arr.length > 1
-        nummin = arr.map { |e| Time.parse(e[:history_lookup]) }.min
-        result = arr.select { |e| Time.parse(e[:history_lookup]) == nummin }[0]
-      else
-        result = arr[0]
-      end
-      return { result[:dict] => result[:des] }
-    end
+    each_list_dectionary(arr, result) unless lookup.max.zero?
   end
+
+  def each_list_dectionary(arr, result)
+    @list_dictionary.values.each { |e| arr << e if e[:lookup] == lookup.max }
+    if arr.length > 1
+      nummin = arr.map { |e| Time.zone.parse(e[:history_lookup]) }.min
+      result = arr.select { |e| Time.zone.parse(e[:history_lookup]) == nummin }[0]
+    else
+      result = arr[0]
+    end
+    { result[:dict] => result[:des] }
+  end
+
 
   class << self
     def find_dict_by_vocab(list, dict)
