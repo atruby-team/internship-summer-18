@@ -1,9 +1,8 @@
-# ex 1
-cong = Proc.new{ |*ar| ar.inject{|a, b| a+b} }
-tru = Proc.new { |*ar| ar.inject{|a, b| a-b} }
-nhan = Proc.new { |*ar| ar.inject{|a, b| a*b} }
-chia = Proc.new do |*ar| 
-  ar.inject {|a, b| a/b unless b.zero?}
+cong = proc { |*ar| ar.inject {|a, b| a + b} }
+tru = proc { |*ar| ar.inject {|a, b| a - b} }
+nhan = proc { |*ar| ar.inject {|a, b| a * b} }
+chia = proc do |*ar|
+  ar.inject { |a, b| a / b unless b.zero? }
 end
 p cong.(3,1,4)
 p tru.(7,2)
