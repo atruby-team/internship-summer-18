@@ -3,33 +3,35 @@ require 'mysql2'
 
 class Employee
   attr_accessor :id, :name, :team, :role, :username, :password, :leave_balance
-  @connect = Mysql2::Client.new(host: 'localhost', username: 'root',
+  def initialize
+    @connect = Mysql2::Client.new(host: 'localhost', username: 'root',
                                 password: 'hoichuphong513',
                                 database: 'LuanTranHumanResources')
-  def initialize; end
-
-  def self.check_login(username, password)
-    sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE username = '#{username}'"
-    result = @connect.query(sql)
-    result.each do |x|
-      BCrypt::Password.new(x.values_at('password').first) == password
-    end
-    false
   end
 
-  def self.add_employee(name, username, password)
+  def check_user(username)
+    sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE username = '#{username}'"
+    @connect.query(sql)
+  end
+  def add_employee(name, username, password, role)
     sql = "INSERT INTO `LuanTranHumanResources`.`employee`(name, role, username, password, leave_balance)
-                        VALUES('#{name}', 'Employee', '#{username}', '#{password}', 10)"
+                        VALUES('#{name}', '#{role}', '#{username}', '#{password}', 10)"
     @connect.query(sql)
   end
 
-  def self.em_forgot(username)
-    sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE username = '#{username}'"
-    @connect.query(sql)
-  end
-
-  def self.update_password(username, password)
+  def update_password(username, password)
     sql = "UPDATE `LuanTranHumanResources`.`employee` SET password = '#{password}' WHERE username = '#{username}'"
+    @connect.query(sql)
+  end
+
+
+  def get_team_lead
+    sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE role = 'team_lead' and id_team = 0 "
+    @connect.query(sql)
+  end
+
+  def update_team(id_lead, id_team)
+    sql = "UPDATE `LuanTranHumanResources`.`employee` SET id_team = '#{id_team}' WHERE id = '#{id_lead}'"
     @connect.query(sql)
   end
 end
