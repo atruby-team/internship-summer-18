@@ -1,0 +1,2 @@
+class TeamController
+end
