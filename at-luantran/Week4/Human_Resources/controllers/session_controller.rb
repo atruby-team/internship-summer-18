@@ -10,14 +10,17 @@ class SessionController
     p 'Enter password:'
     password = gets.chomp
     result = Employee.new.check_user(username)
-    if result.size > 0
+    unless result.empty?
       result.each do |x|
-        if(BCrypt::Password.new(x.values_at('password').first) == password)
-          return true
-        end
+        next unless BCrypt::Password.new(x.values_at('password').first) == password
+        user_login = Employee.new
+        user_login.id = x['id']
+        user_login.id_team = x['id_team']
+        user_login.username = x['username']
+        return user_login
       end
     end
-    return false
+    false
   end
 
   def register
@@ -31,19 +34,19 @@ class SessionController
       p 'Enter username:'
       username = gets.chomp
       result = Employee.new.em_forgot(username)
-      break if result.size == 0
+      break if result.empty?
     end
     p 'Enter password:'
     password = BCrypt::Password.create(gets.chomp)
     p 'Choose role:(1 -> root, 2-> team_lead, 3-> team_member)'
     number = gets.chomp.to_i
-    if(number == 1) 
-      role = 'root'
-    elsif(number == 2)
-      role = 'team_lead'
-    else
-      role = 'team_member'
-    end
+    role = if number == 1
+             'root'
+           elsif number == 2
+             'team_lead'
+           else
+             'team_member'
+           end
     result = Employee.new.add_employee(name, username, password, role)
     system('clear')
     if result
@@ -60,9 +63,10 @@ class SessionController
     p 'Enter username:'
     username = gets.chomp
     result = Employee.new.check_user(username)
-    if result.size > 0
+    if !result.empty?
       p 'Enter new password:'
-      password = gets.chomp
+      password = BCrypt::Password.create(gets.chomp)
+      role = 'root'
       Employee.new.update_password(username, password)
       p 'Update success'
     else

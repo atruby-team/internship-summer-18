@@ -1,10 +1,13 @@
 require './controllers/session_controller'
 require './controllers/team_controller'
 require './models/employee.rb'
+require 'pry'
 
 def login
-  if SessionController.new.login
+  @user = SessionController.new.login
+  if @user
     system('clear')
+    p "WELCOME #{@user.username}"
     screen2
   else
     p 'Invalid username or password!!!'
@@ -20,12 +23,12 @@ def forgot_pass
 end
 
 def screen1
-  system('clear')
   loop do
-    p '============ Human resource ============='
+    p '============ Human Resource ============='
     p '1. Login'
     p '2. Register'
     p '3. Forgot Password'
+    p '4. Exit'
     p 'Choose number:'
     x = gets.chomp.to_i
     case x
@@ -36,19 +39,17 @@ def screen1
     when 3
       forgot_pass
     when 4
-      TeamController.new
+      exit!
     else
-      p '=====>Notice! :Choose number 1-> 3'
-      break if x.zero? 0
+      system('clear')
+      p '=====>Notice! :Choose number 1-> 4'
     end
   end
 end
 
 def screen2
-  system('clear')
   loop do
-    p 'Login success'
-    p '============ Human resource management============='
+    p '============ Human Resource Management ============='
     p '1. Team management'
     p '2. Leave management'
     p '3. Notification management'
@@ -64,13 +65,14 @@ def screen2
       p 2
     when 3
       p 3
+    when 4
+      p 'Logout'
+      @user = nil
+      screen1
     when 5
-      p 4
-    when 6
-      p 6
+      exit!
     else
       p '=====>Notice! :Choose number 1-> 6'
-      break if x == 4
     end
   end
 end
@@ -78,7 +80,7 @@ end
 def screen_team
   system('clear')
   loop do
-    p '==========Team management==========='
+    p '========== Team Management ==========='
     p '1. Create a new team(only root)'
     p '2. Add a new member(only team lead)'
     p '3. Show list of members'
@@ -91,11 +93,13 @@ def screen_team
     when 1
       TeamController.new
       system('clear')
-      p "Create team success!"
+      p 'Create team success!'
     when 2
-      p 2
+      TeamController.add_member(@user)
+      system('clear')
+      p 'Add member success'
     when 3
-      p 3
+      TeamController.members(@user)
     when 5
       p 4
     when 6
@@ -106,5 +110,6 @@ def screen_team
     end
   end
 end
-# Screen level 1
+# Screen level 0
+system('clear')
 screen1

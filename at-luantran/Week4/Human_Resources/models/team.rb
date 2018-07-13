@@ -9,24 +9,18 @@ class Team
   end
 
   def create_team(name, team_lead)
-    sql = "INSERT INTO `LuanTranHumanResources`.`team`(name, team_lead)
-                        VALUES('#{name}', '#{team_lead}')"
+    sql = "INSERT INTO `LuanTranHumanResources`.`team`(name, team_lead, total_members)
+                        VALUES('#{name}', '#{team_lead}', 1)"
     @connect.query(sql)
   end
 
-  def add_member
-    
+  def get_id_max
+    sql = 'SELECT MAX(id) as id_max  FROM `LuanTranHumanResources`.`team`'
+    @connect.query(sql)
   end
 
-  def update
-    
-  end
-
-  def members
-  end
-  
-  def get_id
-    sql = "SELECT MAX(id) as id_max  FROM `LuanTranHumanResources`.`team`"
+  def update_member(id_team)
+    sql = "UPDATE `LuanTranHumanResources`.`team` SET total_members = total_members + 1 WHERE id = '#{id_team}'"
     @connect.query(sql)
   end
 end
