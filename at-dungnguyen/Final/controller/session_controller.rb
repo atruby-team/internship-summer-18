@@ -2,50 +2,46 @@ Dir['../model/*.rb'].each { |file| require file }
 require 'io/console'
 require 'pry'
 require 'bcrypt'
+
 class SessionController
-  def initialize
-    @employee = Employee.new
-  end
+  ADMIN = 2
+  MEMBER = 0
+  LEADER = 1
 
   def log_in
-    p 'Log In'
-    p '======'
     username, password = input
-    temp = @employee.username?(username)
+    temp = Employee.username?(username)
     user = temp.first
+    clear
     return user if temp.count > 0 && BCrypt::Password.new(user['password']) == password
     p 'Wrong password or password'
     nil
   end
 
   def register
-    p 'Register'
-    p '========'
     p 'Name:'
     name = gets.chomp
     username, password = input
     password = BCrypt::Password.create(password)
+    employee = Employee.new(name, SessionController::MEMBER, username, password, 12)
     begin
-      @employee.add(username, password, name)
-      system('clear')
+      Employee.add(employee)
+      clear
       p 'Register success'
-      return true
     rescue StandardError
-      system('clear')
+      clear
       p 'Username exist!'
-      register
     end
   end
 
   def forgot_password
-    p 'Forgot Password'
-    p '==============='
     p 'Input username:'
     username = gets.chomp
-    if @employee.username?(username)
+    if Employee.username?(username).count > 0
       p 'Input password:'
       password = BCrypt::Password.create(STDIN.noecho(&:gets).chomp)
-      @employee.update_password(username, password)
+      Employee.update_password(username, password)
+      clear
       p 'Update password Success'
     else
       p 'Invalid username'
@@ -58,5 +54,9 @@ class SessionController
     p 'Password:'
     password = STDIN.noecho(&:gets).chomp
     [username, password]
+  end
+
+  def clear
+    system('clear')
   end
 end
