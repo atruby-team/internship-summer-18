@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>Sinatra App</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<boby>
+  <header class="page-header">
+
+  </header>
+  <main class="page-main">
+    <h1>Detail Post</h1>
+    <p>Content:</p>
+    <p><%= @post['content'] %></p>
+    <p>User:</p>
+    <p><%= @author['name'] %></p>
+    <% if(@comments.any?)%>
+      <p>Commnets:</p>
+      <% @comments.each do |comment| %>
+        <p><%= comment['id'] %> . <%= comment['content']%></p>
+      <%end%>
+    <%end%>
+  </main>
+  <footer></footer>
+</body>
+</html>

@@ -1,0 +1,36 @@
+.page-main h1 {
+  color: blue;
+  font-size: 30px;
+}
+
+.page-main {
+  padding: 15px;
+}
+
+.table-main th {
+  width: calc(100% / 3);
+  border: 1px solid black;
+  padding: 3px 5px;
+  text-align: center;
+}
+
+.table-main td {
+  width: calc(100% / 3);
+  border: 1px solid black;
+  padding: 3px 5px;
+  text-align: center;
+}
+
+.pag-item {
+  float: left;
+  padding-left: 4px;
+  color: blue;
+}
+
+.pag-item a {
+  text-decoration: none;
+}
+
+.pag-item+.pag-item::before {
+  content: "|"
+}
