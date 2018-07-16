@@ -1,4 +1,5 @@
 require 'mysql2'
+require 'bcrypt'
 
 @db_host  = '127.0.0.1'
 @db_user  = 'root'
@@ -32,8 +33,10 @@ create_table_notification = "CREATE TABLE IF NOT EXISTS `DungNguyen_HumanResourc
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NULL,
   `content` TEXT NULL,
-  `publish_date` DATE NULL,
-  PRIMARY KEY (`id`));
+  `publish_date` DATETIME NULL,
+  `id_team` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT fkey_notify FOREIGN KEY(id_team) REFERENCES `DungNguyen_HumanResources`.`team`(id));
 "
 create_table_leave = "CREATE TABLE IF NOT EXISTS `DungNguyen_HumanResources`.`leave` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -45,9 +48,13 @@ create_table_leave = "CREATE TABLE IF NOT EXISTS `DungNguyen_HumanResources`.`le
   PRIMARY KEY (`id`),
   CONSTRAINT fkey_leave FOREIGN KEY(id_user) REFERENCES `DungNguyen_HumanResources`.`employee`(id));
 "
+pass = BCrypt::Password.create('admin')
+
+admin_account = "INSERT INTO `DungNguyen_HumanResources`.`employee`(name, role, username, password) VALUES('Admin', 2, 'admin', '#{pass}')"
 
 client.query(create_database)
 client.query(create_table_employee)
 client.query(create_table_team)
 client.query(create_table_notification)
 client.query(create_table_leave)
+client.query(admin_account)

@@ -14,18 +14,20 @@ class Employee
   end
 
   def self.add(employee)
-    sql = "INSERT INTO `DungNguyen_HumanResources`.`employee`(name, role, username, password, leave_balance)
+    sql = "INSERT INTO employee(name, role, username, password, leave_balance)
      VALUES('#{employee.name}', #{employee.role}, '#{employee.username}', '#{employee.password}', #{employee.leave_balance})"
     @@client.query(sql)
+    @@client.affected_rows
   end
 
   def self.username?(username)
-    sql = "SELECT * FROM `DungNguyen_HumanResources`.`employee` WHERE employee.username = '#{username}'"
-    @@client.query(sql)
+    sql = "SELECT * FROM employee WHERE username = '#{username}'"
+    @@client.query(sql).first
   end
 
   def self.update_password(username, password)
-    sql = "UPDATE `DungNguyen_HumanResources`.`employee` SET password = '#{password}' WHERE username = '#{username}'"
+    sql = "UPDATE employee SET password = '#{password}' WHERE username = '#{username}'"
     @@client.query(sql)
+    @@client.affected_rows
   end
 end

@@ -21,7 +21,7 @@ class Team
     @@client.query(sql)
   end
 
-  def update_members(id_team)
+  def self.update_members(id_team)
     sql = "UPDATE `DungNguyen_HumanResources`.`team` SET total_members = total_members + 1 WHERE id = '#{id_team}'"
     @@client.query(sql)
   end

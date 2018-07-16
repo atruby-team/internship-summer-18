@@ -20,7 +20,7 @@ class TeamController
     p 'ID Employee'
     id_employee = Integer(gets)
     Team.add_member(id_employee, id_team)
-    Team.update_member(id_team)
+    Team.update_members(id_team)
     p 'Add Success'
     puts
   rescue StandardError
