@@ -24,6 +24,7 @@ create_nontification = 'CREATE TABLE IF NOT EXISTS `LuanTranHumanResources`.`not
   `title` VARCHAR(45) NULL,
   `content` MEDIUMTEXT NULL,
   `pulbish_date` DATE NULL,
+  `id_team` INT NULL,
   PRIMARY KEY (`id`));'
 create_leave = 'CREATE TABLE IF NOT EXISTS `LuanTranHumanResources`.`leave` (
   `id` INT NOT NULL AUTO_INCREMENT,

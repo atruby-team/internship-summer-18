@@ -10,7 +10,7 @@ class SessionController
     p 'Enter password:'
     password = gets.chomp
     result = Employee.new.check_user(username)
-    unless result.empty?
+    unless result.size < 0
       result.each do |x|
         next unless BCrypt::Password.new(x.values_at('password').first) == password
         user_login = Employee.new

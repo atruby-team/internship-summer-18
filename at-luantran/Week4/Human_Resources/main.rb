@@ -1,5 +1,6 @@
 require './controllers/session_controller'
 require './controllers/team_controller'
+require './controllers/notification_controller'
 require './models/employee.rb'
 require 'pry'
 
@@ -62,9 +63,9 @@ def screen2
     when 1
       screen_team
     when 2
-      p 2
+      
     when 3
-      p 3
+      screen_notif
     when 4
       p 'Logout'
       @user = nil
@@ -101,12 +102,98 @@ def screen_team
     when 3
       TeamController.members(@user)
     when 5
-      p 4
+      p 'Logout'
+      @user = nil
+      screen1
     when 6
-      p 6
+      exit!
     else
       p '=====>Notice! :Choose number 1-> 6'
       break if x == 4
+    end
+  end
+end
+
+def screen_notif
+  system('clear')
+  loop do
+    p '========== Notification Management ==========='
+    p '1. Send a notification(only team lead)'
+    p '2. Read a notification'
+    p '3. Delete a notification'
+    p '4. Show list of notifications.'
+    p '5. Return: Go to Level 1'
+    p '6. Logout: Go to Level 0'
+    p '7. Exit: Shutdown program'
+    p 'Choose number:'
+    x = gets.chomp.to_i
+    case x
+    when 1
+      NotificationController.send(@user)
+      system('clear')
+      p 'Send notification success!'
+    when 2
+      NotificationController.read(@user)
+    when 3
+      NotificationController.delete(@user)
+      system('clear')
+      p 'Delete notification success!'
+    when 4
+      NotificationController.read(@user)
+    when 6
+      p 'Logout'
+      @user = nil
+      screen1
+    when 7
+      exit!
+    else
+      p '=====>Notice! :Choose number 1-> 6'
+      break if x == 5
+    end
+  end
+end
+
+def screen_notif
+  system('clear')
+  loop do
+    p '========== Leave Management ==========='
+    p '1. Send a leave request'
+    p '2. Show list leaves request need approve(only team lead)'
+    p '3. Approve or reject leave request(only team lead)'
+    p '4. Update a leave request'
+    p '5. Show list of leaves of employees.'
+    p '6. Return: Go to Level 1.'
+    p '7. Logout: Go to Level 0.'
+    p '8. Exit: Shutdown program.'
+    p 'Choose number:'
+    x = gets.chomp.to_i
+    case x
+    when 1
+      system('clear')
+      if LeaveController.send(@user)
+        p 'Send leave request success'
+      else
+        p 'Error with total day off'
+      end
+    when 2
+      NotificationController.read(@user)
+    when 3
+      NotificationController.delete(@user)
+      system('clear')
+      p 'Delete notification success!'
+    when 4
+      p 4
+    when 5 
+      p 5
+    when 7
+      p 'Logout'
+      @user = nil
+      screen1
+    when 8
+      exit!
+    else
+      p '=====>Notice! :Choose number 1-> 8'
+      break if x == 6
     end
   end
 end
