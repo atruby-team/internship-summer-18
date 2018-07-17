@@ -4,7 +4,7 @@ sum = a.inject { |n, i| n + i }
 puts sum
 
 # Create an array with elements from 0 to 1000 that can be divided by 3 and 5.
-b = (0..1000).find_all { |i| (i % 3).zero? && (i % 5).zero? }
+b = (0..1000).find_all { |i| (i % 15).zero? }
 puts b
 
 # Give an array and remove odd numbers.

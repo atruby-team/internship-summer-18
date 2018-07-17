@@ -1,5 +1,5 @@
-max = 0
-arr = [-5, -7, 4, 5, 8]
+arr = [-5, -7, -4, -5, -8]
+max = arr.last(3).reduce(1, :*)
 b = arr.combination(3).to_a
 b.each do |x|
   c = x.reduce(1, :*)
