@@ -7,11 +7,17 @@ class StringFormat
   end
 
   def name_format
-    @str = @str.split(' ').each do |s|
+    str = []
+    @str.strip!
+    arr = @str.split(' ')
+    arr.each do |s|
       s.gsub!(/[^a-zA-Z]/, '')
-      s.capitalize! if only_letter?(s)
+      if only_letter?(s)
+        s.capitalize!
+        str << s
+      end
     end
-    @str = @str.join(' ')
+    str.join(' ')
   end
 
   def uniq(str)
@@ -25,5 +31,5 @@ class StringFormat
 end
 
 b = StringFormat.new
-puts b.human_name('quang _dung')
+puts b.human_name('quang _ _ _ _dung')
 puts b.uniq('Hello world!!!')
