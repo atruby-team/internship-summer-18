@@ -4,7 +4,7 @@ total = arr1.inject { |sum, i| sum + i }
 puts total
 
 # Create an array with elements from 0 to 1000 that can be divided by 3 and 5.
-arr2 = (0..1000).select { |i| (i % 3).zero? && (i % 5).zero? }
+arr2 = (0..1000).select { |i| (i % 15).zero? }
 puts arr2
 
 # Give an array and remove odd numbers.

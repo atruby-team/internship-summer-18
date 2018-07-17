@@ -1,9 +1,14 @@
-arr = [-10, -1, 2, 3, 4]
-max = 0
+arr = [-4, -3, -2, -1]
 
-arr.combination(3) do |x|
-  a = x.reduce(1, :*)
-  max = a if a > max
+def max_product(arr)
+  n = arr.length
+  return -1 if n < 3
+  arr.sort!
+  [arr[0] * arr[1] * arr[n - 1], arr[n - 1] * arr[n - 2] * arr[n - 3]].max
 end
 
-puts max
+if max_product(arr) == -1
+  puts 'Array Input Error'
+else
+  puts max_product(arr)
+end
