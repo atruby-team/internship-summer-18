@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post</title>
+</head>
+<body>
+  <header class="page-header">
+    <span class="title"><h1>Sinatra</h1></span>
+  </header>
+  <body class="page-main">
+    <h2>Posts</h2>
+    <table class="table-post">
+      <thead class="table-header">
+        <tr>
+          <th>ID</th>
+          <th>Content</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody class="table-main">
+        <% @posts.each do |post| %>
+        <tr>
+          <td><%= post['post_id'] %></td>
+          <td><%= post['content'] %></td>
+          <td><a href="/post/<%= post['post_id'] %>">Detail</a></td>
+        </tr>
+        <% end %>
+        <tfoot>
+          <tr>  </tr>
+        </tfoot>
+      </tbody>
+    </table>
+    
+  </body>
+  <footer class="page-footer">
+    <span>Design by HoangTran</span>
+  </footer>
+</body>
+</html>
