@@ -11,7 +11,7 @@ class StringFormat
           _a = x.ord - 32
           out += _a.chr
         else
-          out += x
+          out += x unless string[i - 1] == ' ' && x == ' '
         end
         i += 1
       end
@@ -29,7 +29,7 @@ class StringFormat
 
   def only_letter?(string)
     if string.is_a? String
-      string.length <= 1
+      string == string.gsub(/[^a-zA-Z]/, '')
     else
       nil
     end
@@ -38,5 +38,6 @@ class StringFormat
 end
 
 puts StringFormat.human_name 'kaylene _johnson'
+puts StringFormat.human_name 'kaylene -  -_  _ _johnson'
 puts StringFormat.uniq 'Hello word'
 puts StringFormat.only_letter? 'Hello'
