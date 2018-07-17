@@ -1,18 +1,24 @@
-puts 'Input:'
+print 'Input: '
 loop do
-  a = Float(gets.chomp)
-  break if a < 0 || a > 10
+  a = gets.to_i
   case a
-  when a >= 9
+  when (9..10)
     puts 'A'
-  when a >= 8
+    break
+  when (8..9)
     puts 'B'
-  when a >= 7
+    break
+  when 7..8
     puts 'C'
-  when a >= 6
+    break
+  when 6..7
     puts 'D'
-  else
+    break
+  when 0..6
     puts 'F'
+    break
+  else
+    p 'Please choose 0 to 10 !'
+    print 'Input: '
   end
-  break
 end

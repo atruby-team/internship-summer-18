@@ -1,7 +1,10 @@
-max = 0
-arr = [-4, -2, -3, -2, 3]
-arr.combination(3) do |n|
-  b = n.reduce(1, :*)
-  max = b if b > max
+arr = [-4, -2, -3, -2, 1]
+arr.sort!
+max1 = arr.first * arr[1] * arr.last
+max2 = arr.last * arr[arr.length - 2] * arr[arr.length - 3]
+if max1 > max2
+  max = max1
+else
+  max = max2
 end
 puts max
