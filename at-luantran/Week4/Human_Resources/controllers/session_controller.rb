@@ -17,6 +17,8 @@ class SessionController
         user_login.id = x['id']
         user_login.id_team = x['id_team']
         user_login.username = x['username']
+        user_login.leave_balance = x['leave_balance']
+        user_login.name = x['name']
         return user_login
       end
     end

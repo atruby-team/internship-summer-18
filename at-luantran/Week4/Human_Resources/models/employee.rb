@@ -39,4 +39,9 @@ class Employee
     sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE id_team = #{id_team}"
     @connect.query(sql)
   end
+
+  def update_balance(id, total_date_off)
+    sql = "UPDATE `LuanTranHumanResources`.`employee` SET leave_balance = leave_balance - #{total_date_off} WHERE id = '#{id}'"
+    @connect.query(sql)
+  end
 end

@@ -1,27 +1,8 @@
 require './controllers/session_controller'
 require './controllers/team_controller'
 require './controllers/notification_controller'
-require './models/employee.rb'
+require './controllers/leave_controller'
 require 'pry'
-
-def login
-  @user = SessionController.new.login
-  if @user
-    system('clear')
-    p "WELCOME #{@user.username}"
-    screen2
-  else
-    p 'Invalid username or password!!!'
-  end
-end
-
-def register
-  SessionController.new.register
-end
-
-def forgot_pass
-  SessionController.new.forgot_password
-end
 
 def screen1
   loop do
@@ -34,11 +15,18 @@ def screen1
     x = gets.chomp.to_i
     case x
     when 1
-      login
+      @user = SessionController.new.login
+      if @user
+        system('clear')
+        p "WELCOME #{@user.username}"
+        screen2
+      else
+        p 'Invalid username or password!!!'
+      end
     when 2
-      register
+      SessionController.new.register
     when 3
-      forgot_pass
+      SessionController.new.forgot_password
     when 4
       exit!
     else
@@ -63,7 +51,7 @@ def screen2
     when 1
       screen_team
     when 2
-      
+      screen_leave
     when 3
       screen_notif
     when 4
@@ -153,7 +141,7 @@ def screen_notif
   end
 end
 
-def screen_notif
+def screen_leave
   system('clear')
   loop do
     p '========== Leave Management ==========='
@@ -170,21 +158,22 @@ def screen_notif
     case x
     when 1
       system('clear')
-      if LeaveController.send(@user)
+      if LeaveController.request(@user)
         p 'Send leave request success'
       else
         p 'Error with total day off'
       end
     when 2
-      NotificationController.read(@user)
+      LeaveController.new.show(@user, 'sending')
+      p '===================================='
     when 3
-      NotificationController.delete(@user)
-      system('clear')
-      p 'Delete notification success!'
+      LeaveController.approve(@user, 'sending')
     when 4
-      p 4
-    when 5 
-      p 5
+      LeaveController.update(@user)
+      p 'Update success'
+    when 5
+      LeaveController.new.list_of_leaves(@user)
+      p '===================================='
     when 7
       p 'Logout'
       @user = nil
