@@ -2,12 +2,13 @@ Dir['../model/*.rb'].each { |file| require file }
 require 'pry'
 
 class NotificationController
-  def get_items(team_id)
-    Notification.get_all_notify(team_id)
+  def get_items(id_team)
+    Notification.get_all_notify(id_team)
   end
 
-  def get_item(id)
-    Notification.get_notify(id)
+  def get_item(id, employee)
+    notify = Notification.get_notify(id)
+    notify if notify['id_team'] == employee['team']
   end
 
   def add_item(notify)

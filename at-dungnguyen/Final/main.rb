@@ -1,9 +1,11 @@
 require './controller/session_controller'
 require './controller/team_controller'
 require './controller/notification_controller'
+require './controller/leave_controller'
 require './model/employee'
 require './model/team'
 require './model/notification'
+require './model/leave'
 require 'pry'
 
 class HumanResources
@@ -11,6 +13,7 @@ class HumanResources
     @sc = SessionController.new
     @tc = TeamController.new
     @nc = NotificationController.new
+    @lc = LeaveController.new
   end
 
   # Session
@@ -145,10 +148,12 @@ class HumanResources
   end
 
   def all_notify
-    list_notify = @nc.get_items(@user['team'])
-    if list_notify.any?
-      list_notify.each do |notify|
-        puts "#{notify['title']} | #{notify['publish_date']}"
+    if @user['team']
+      list_notify = @nc.get_items(@user['team'])
+      if list_notify.any?
+        list_notify.each do |notify|
+          puts "#{notify['id']} : #{notify['title']} | #{notify['publish_date']}"
+        end
       end
     end
     p '====================================================================='
@@ -157,9 +162,15 @@ class HumanResources
   def g_notify
     p 'Input id notification'
     id = input
-    notify = @nc.get_item(id)
-    p "#{notify['title']} | #{notify['publish_date']}"
-    p notify['content']
+    notify = @nc.get_item(id, @user)
+    clear
+    if notify
+      p "#{notify['id']} : #{notify['title']} | #{notify['publish_date']}"
+      p notify['content']
+    else
+      p 'Invalid ID'
+    end
+    p '================================='
   end
 
   def send_notify
@@ -170,34 +181,137 @@ class HumanResources
     publish_date = Time.now
     id_team = @user['team']
     notify = Notification.new(title, content, publish_date.strftime('%F %T'), id_team)
+    clear
     if @nc.add_item(notify)
       p 'Send notify success'
     else
       p 'Send error!'
     end
+    p '================================'
   end
 
   def del_notify
     p 'Input id notification'
     id = input
+    clear
     if @nc.del_item(id)
       p 'Delete Notification Success'
     else
       p "Notification doesn't exist!"
     end
+    p '================================'
   end
 
+  # Leave
   def leave_management
     p 'Leave Management'
     p '==============='
     p '1. Send a leave request'
     p '2. Update a leave request'
-    p '3. Show list of leaves of employees.'
-    p '4. Back'
-    p '5. Logout'
-    p '6. Show list leaves request need approve' if @user['role'] == SessionController::LEADER
-    p '7. Approve or reject leave request' if @user['role'] == SessionController::LEADER
+    p '3. Delete a leave request'
+    p '4. Show list of leaves of employees.'
+    p '5. Back'
+    p '6. Logout'
+    p '7. Show list leaves request need approve' if @user['role'] == SessionController::LEADER
+    p '8. Approve or reject leave request' if @user['role'] == SessionController::LEADER
     p '0. Exit'
+  end
+
+  def execute_leave(function)
+    case function
+    when 1
+      send_request
+    when 2
+      update_request
+    when 3
+      delele_request(@user)
+    when 4
+      list_approved
+    when 5
+      @flag_leave = false
+    when 6
+      @flag_leave = false
+      @user = nil
+    when 7
+      list_need_approve if @user['role'] == SessionController::LEADER
+    when 8
+      update_status if @user['role'] == SessionController::LEADER
+    when 0
+      @flag_leave = false
+      execute2(0)
+    end
+  end
+
+  def send_request
+    p 'Reason'
+    reason = gets.chomp
+    p 'Total date off'
+    total_date_off = input
+    time = Time.now
+    request = Leave.new(@user['id'], reason, total_date_off, 0, time.strftime('%F %T'))
+    clear
+    if @lc.add_item(request)
+      p 'Send Sucess'
+    else
+      p 'Send Error'
+    end
+  end
+
+  def update_request
+    p 'ID leave request'
+    id = input
+    p 'Reason'
+    reason = gets.chomp
+    p 'Total date off'
+    total_date_off = input
+    leave = Leave.new(@user['id'], reason, total_date_off, 0, 0)
+    if @lc.update_leave(id, leave, @user)
+      p 'Update Sucess'
+    else
+      p 'Update Error'
+    end
+  end
+
+  def delele_request(user)
+    p 'ID leave request'
+    id = input
+    if @lc.del_item(id, user)
+      p 'Delete Sucess'
+    else
+      p 'Delete Error'
+    end
+  end
+
+  def list_approved
+    if @lc.all_approved.any?
+      @lc.all_approved.each do |leave|
+        p "ID: #{leave['id']} - User: #{leave['id_user']} - Reason: #{leave['reason']} - Date off: #{leave['total_date_off']}"
+      end
+    else
+      p 'No result'
+    end
+  end
+
+  def list_need_approve
+    if @lc.need_approve.any?
+      @lc.need_approve.each do |leave|
+        p "ID: #{leave['id']} - User: #{leave['id_user']} - Reason: #{leave['reason']} - Date off: #{leave['total_date_off']}"
+      end
+    else
+      p 'No result'
+    end
+  end
+
+  def update_status
+    p 'ID leave request'
+    id = input
+    p 'Approve or Reject'
+    status = input
+    if @lc.update_status(id, status)
+      p 'Update Success'
+    else
+      p 'Update Error'
+    end
   end
 
   # Default
@@ -245,7 +359,13 @@ class HumanResources
         execute_team(function) if (0..5).cover? function
       end
     when 2
-      p 'leave_management'
+      @flag_leave = true
+      while @flag_leave
+        leave_management
+        function = input
+        clear
+        execute_leave(function) if (0..8).cover? function
+      end
     when 3
       @flag_notify = true
       while @flag_notify

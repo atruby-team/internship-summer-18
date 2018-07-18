@@ -30,4 +30,15 @@ class Employee
     @@client.query(sql)
     @@client.affected_rows
   end
+
+  def self.update_leave(user_id, date_off)
+    sql = "UPDATE employee SET leave_balance = #{date_off} WHERE id = #{id}"
+    @@client.query(sql)
+    @@client.affected_rows
+  end
+
+  def self.find_employee(id)
+    sql = "SELECT * FROM employee WHERE id = #{id}"
+    @@client.query(sql).first
+  end
 end

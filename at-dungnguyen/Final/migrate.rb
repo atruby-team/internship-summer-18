@@ -44,13 +44,13 @@ create_table_leave = "CREATE TABLE IF NOT EXISTS `DungNguyen_HumanResources`.`le
   `reason` TEXT NULL,
   `total_date_off` INT NULL,
   `status` INT NULL,
-  `publish_date` DATE NULL,
+  `publish_date` DATETIME NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT fkey_leave FOREIGN KEY(id_user) REFERENCES `DungNguyen_HumanResources`.`employee`(id));
 "
 pass = BCrypt::Password.create('admin')
 
-admin_account = "INSERT INTO `DungNguyen_HumanResources`.`employee`(name, role, username, password) VALUES('Admin', 2, 'admin', '#{pass}')"
+admin_account = "INSERT INTO `DungNguyen_HumanResources`.`employee`(name, role, username, password, leave_balance) VALUES('Admin', 2, 'admin', '#{pass}', 0)"
 
 client.query(create_database)
 client.query(create_table_employee)

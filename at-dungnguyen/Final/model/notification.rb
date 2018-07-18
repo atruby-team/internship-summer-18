@@ -1,3 +1,5 @@
+require 'pry'
+require 'mysql2'
 class Notification
   attr_reader :id
   attr_accessor :title, :content, :publish_date, :id_team
