@@ -18,12 +18,12 @@ class Notification
 
   def get_list(id_team)
     sql = "SELECT * FROM `LuanTranHumanResources`.`notification` WHERE id_team = #{id_team}"
-    @connect.query(sql)
+    @connect.query(sql).to_a
   end
 
   def get_item(id)
     sql = "SELECT * FROM `LuanTranHumanResources`.`notification` WHERE id = #{id}"
-    @connect.query(sql)
+    @connect.query(sql).to_a
   end
 
   def delete(id)

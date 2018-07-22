@@ -50,8 +50,6 @@ class TeamController
     Team.new.update_member(user.id_team)
   end
 
-  def update; end
-
   def self.members(user)
     system('clear')
     result = Employee.new.get_member_team(user.id_team)

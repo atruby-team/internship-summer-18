@@ -1,6 +1,5 @@
 require 'bcrypt'
 require './models/employee.rb'
-require 'pry'
 class SessionController
   def login
     system('clear')
@@ -19,6 +18,7 @@ class SessionController
         user_login.username = x['username']
         user_login.leave_balance = x['leave_balance']
         user_login.name = x['name']
+        user_login.role = x['role']
         return user_login
       end
     end
@@ -56,7 +56,7 @@ class SessionController
     else
       p 'Error'
     end
-    SessionController.new.login
+    login
   end
 
   def forgot_password
@@ -68,7 +68,6 @@ class SessionController
     if !result.empty?
       p 'Enter new password:'
       password = BCrypt::Password.create(gets.chomp)
-      role = 'root'
       Employee.new.update_password(username, password)
       p 'Update success'
     else

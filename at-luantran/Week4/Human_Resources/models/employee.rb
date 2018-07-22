@@ -11,7 +11,7 @@ class Employee
 
   def check_user(username)
     sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE username = '#{username}'"
-    @connect.query(sql)
+    @connect.query(sql).to_a
   end
 
   def add_employee(name, username, password, role)
@@ -27,7 +27,7 @@ class Employee
 
   def get_employee(position)
     sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE role = '#{position}' and id_team = 0 "
-    @connect.query(sql)
+    @connect.query(sql).to_a
   end
 
   def update_team(id_employee, id_team)
@@ -37,7 +37,7 @@ class Employee
 
   def get_member_team(id_team)
     sql = "SELECT * FROM `LuanTranHumanResources`.`employee` WHERE id_team = #{id_team}"
-    @connect.query(sql)
+    @connect.query(sql).to_a
   end
 
   def update_balance(id, total_date_off)

@@ -11,20 +11,20 @@ class Leave
   def add_request(reason, total, user_id)
     date = DateTime.now
     d = DateTime.parse(date.to_s).to_time.strftime('%F %T')
-    sql = "INSERT INTO `LuanTranHumanResources`.`leave`(id_user, reason, total_day_off, status, pulbish_date)
+    sql = "INSERT INTO `LuanTranHumanResources`.`leave`(id_user, reason, total_day_off, status, publish_date)
                         VALUES('#{user_id}', '#{reason}', #{total}, 'sending', '#{d}')"
     @connect.query(sql)
   end
 
   def get_list_lead(id_team, status)
-    sql = "SELECT * FROM `LuanTranHumanResources`.`leave` INNER JOIN users
-            ON leave.id_user = users.id WHERE id_team = #{id_team} and status = #{status}"
-    @connect.query(sql)
+    sql = "SELECT *, `leave`.id AS leave_id  FROM `LuanTranHumanResources`.`leave` INNER JOIN `LuanTranHumanResources`.`employee`
+           ON leave.id_user = employee.id WHERE id_team = #{id_team} and status = '#{status}'"
+    @connect.query(sql).to_a
   end
 
   def get_list_employee(id_user, status)
-    sql = "SELECT * FROM `LuanTranHumanResources`.`leave` WHERE id_user = #{id_user} and status = #{status}"
-    @connect.query(sql)
+    sql = "SELECT * FROM `LuanTranHumanResources`.`leave` WHERE id_user = #{id_user} and status = '#{status}'"
+    @connect.query(sql).to_a
   end
 
   def reponse_approve(id)
@@ -39,15 +39,16 @@ class Leave
 
   def get_item(id)
     sql = "SELECT * FROM `LuanTranHumanResources`.`leave` WHERE id = #{id}"
-    @connect.query(sql)
+    @connect.query(sql).to_a
   end
 
   def update_request(reason, id)
-    sql  = "UPDATE `LuanTranHumanResources`.`leave` SET reason = #{reason}, status = 'sending' WHERE id = #{id}"
+    sql = "UPDATE `LuanTranHumanResources`.`leave` SET reason = '#{reason}', status = 'sending' WHERE id = #{id}"
+    @connect.query(sql)
   end
 
   def delete_request(id)
-    sql  = "DELETE FROM `LuanTranHumanResources`.`leave` WHERE id = #{id}"
+    sql = "DELETE FROM `LuanTranHumanResources`.`leave` WHERE id = #{id}"
     @connect.query(sql)
   end
 end

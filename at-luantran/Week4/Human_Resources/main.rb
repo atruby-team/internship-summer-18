@@ -70,8 +70,8 @@ def screen_team
   system('clear')
   loop do
     p '========== Team Management ==========='
-    p '1. Create a new team(only root)'
-    p '2. Add a new member(only team lead)'
+    p '1. Create a new team(only root)' if @user.role == 'root'
+    p '2. Add a new member(only team lead)' if @user.role == 'team_lead'
     p '3. Show list of members'
     p '4. Return: Go to Level 1'
     p '5. Logout: Go to Level 0'
@@ -106,7 +106,7 @@ def screen_notif
   system('clear')
   loop do
     p '========== Notification Management ==========='
-    p '1. Send a notification(only team lead)'
+    p '1. Send a notification(only team lead)' if @user.role == 'team_lead'
     p '2. Read a notification'
     p '3. Delete a notification'
     p '4. Show list of notifications.'
@@ -146,8 +146,8 @@ def screen_leave
   loop do
     p '========== Leave Management ==========='
     p '1. Send a leave request'
-    p '2. Show list leaves request need approve(only team lead)'
-    p '3. Approve or reject leave request(only team lead)'
+    p '2. Show list leaves request need approve(only team lead)' if @user.role == 'team_lead'
+    p '3. Approve or reject leave request(only team lead)' if @user.role == 'team_lead'
     p '4. Update a leave request'
     p '5. Show list of leaves of employees.'
     p '6. Return: Go to Level 1.'
@@ -167,10 +167,9 @@ def screen_leave
       LeaveController.new.show(@user, 'sending')
       p '===================================='
     when 3
-      LeaveController.approve(@user, 'sending')
+      p LeaveController.new.approve(@user)
     when 4
-      LeaveController.update(@user)
-      p 'Update success'
+      p LeaveController.new.update(@user)
     when 5
       LeaveController.new.list_of_leaves(@user)
       p '===================================='

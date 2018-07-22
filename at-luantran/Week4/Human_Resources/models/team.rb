@@ -14,9 +14,9 @@ class Team
     @connect.query(sql)
   end
 
-  def get_id_max
+  def id_max
     sql = 'SELECT MAX(id) as id_max  FROM `LuanTranHumanResources`.`team`'
-    @connect.query(sql)
+    @connect.query(sql).to_a
   end
 
   def update_member(id_team)
