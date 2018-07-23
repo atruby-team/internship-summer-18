@@ -18,19 +18,19 @@ class Student
   end
 
   def add_course(course_name)
-    # @list_course.push(course_name) unless @list_course.include?(course_name)
     if @list_course.include?(course_name)
       return false
     else 
       @list_course.push(course_name)
+    end
   end
-  
+
   def remove_course(course_name)
     if @list_course.include?(course_name)
       @list_course.delete(course_name)
-	  return course_name
-	else
-	  return false
+	    return course_name
+	  else
+	    return false
     end
   end
   
