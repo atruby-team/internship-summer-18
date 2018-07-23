@@ -32,8 +32,7 @@ class Dictionary
 
   def remove(vocab)
     result = Dictionary.find_dict_by_vocab(@list_dictionary, vocab)
-    check = result ? result[0] : nil
-    @list_dictionary.delete(check) ? true : false
+    @list_dictionary.delete(result[0]) if result
   end
 
   def pop
