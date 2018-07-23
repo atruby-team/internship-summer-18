@@ -6,18 +6,13 @@ class Dictionary
   end
 
   def add(vocab, desc)
-    h = {}
-    unless @keys.include?(vocab)
-      h[vocab] = desc
-      @keys.push(vocab)
-      @dict.push(h)
-    end
+    return if @keys.include?(vocab)
+    @keys.push(vocab)
+    @dict.push(vocab => desc)
   end
 
   def update(vocab, desc)
-    id = @dict.index { |dict| dict.key?(vocab) }
-    @dict.delete_at(id)
-    @keys.delete(vocab)
+    remove(vocab)
     add(vocab, desc)
   end
 
@@ -27,9 +22,9 @@ class Dictionary
 
   def pop
     temp = @keys.last
+    @count[temp]
     @keys.pop
     @dict.pop
-    @count[temp]
   end
 
   def size
@@ -61,7 +56,8 @@ class Dictionary
   end
 
   def remove(vocab)
-    @dict.delete(vocab)
+    id = @dict.index { |dict| dict.key?(vocab) }
+    @dict.delete_at(id)
     @keys.delete(vocab)
   end
 end
@@ -79,10 +75,10 @@ puts dict.favorite
 dict.add('Love', 'Tình yêu')
 dict.update('Goodbye', 'Chào tạm biệt')
 puts dict.lookup('Goodbye')
-dict.pop
+puts dict.pop
 dict.favorite
 dict.random
-dict.pop
-dict.pop
-dict.pop
+puts dict.pop
+puts dict.pop
+puts dict.pop
 puts dict.size
