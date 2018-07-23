@@ -11,11 +11,9 @@ class Student
   end
 
   def add_course(course)
-    unless @list_courses.include? course
-      @list_courses << course
-      return course
-    end
-    false
+    return false if @list_courses.include? course
+    @list_courses << course
+    course
   end
 
   def show

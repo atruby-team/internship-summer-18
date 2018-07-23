@@ -7,24 +7,19 @@ class Dictionary
   end
 
   def add(dict, des)
-    if Dictionary.check_empty_by_vocab(@list_dictionary, dict)
-      @list_dictionary[@id] =
-        { dict: dict, des: des, lookup: 0, history_lookup: 0 }
-      @id += 1
-      return true
-    end
-    false
+    return false unless Dictionary.check_empty_by_vocab(@list_dictionary, dict)
+    @list_dictionary[@id] =
+      { dict: dict, des: des, lookup: 0, history_lookup: 0 }
+    @id += 1
+    true
   end
 
   def lookup(vocab)
-    result = Dictionary.find_dict_by_vocab(@list_dictionary, vocab)
-    if result
-      sleep 0.5
-      result[1][:lookup] += 1
-      result[1][:history_lookup] = Time.current
-      return result[1][:des]
-    end
-    nil
+    return nil unless Dictionary.find_dict_by_vocab(@list_dictionary, vocab)
+    sleep 0.5
+    result[1][:lookup] += 1
+    result[1][:history_lookup] = Time.current
+    result[1][:des]
   end
 
   def size
@@ -42,12 +37,10 @@ class Dictionary
   end
 
   def update(vocab, desc)
-    unless Dictionary.check_empty_by_vocab(@list_dictionary, vocab)
-      result = Dictionary.find_dict_by_vocab(@list_dictionary, vocab)
-      @list_dictionary.delete(result[0])
-      return add(vocab, desc)
-    end
-    false
+    return false if Dictionary.check_empty_by_vocab(@list_dictionary, vocab)
+    result = Dictionary.find_dict_by_vocab(@list_dictionary, vocab)
+    @list_dictionary.delete(result[0])
+    add(vocab, desc)
   end
 
   def random
@@ -78,7 +71,6 @@ class Dictionary
     end
     { result[:dict] => result[:des] }
   end
-
 
   class << self
     def find_dict_by_vocab(list, dict)
