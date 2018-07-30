@@ -1,14 +1,34 @@
-add = ->(*arr) { arr.inject { |i, y| i + y } }
-sub1 = ->(*arr) { arr.inject { |i, y| i - y } }
-multi = ->(*arr) { arr.inject { |i, y| i * y } }
-div = lambda { |*arr|
-  if arr.slice(1, arr.length).include? 0
-    'Khong chia duoc'
-  else
-    arr.inject { |i, y| i / y }
+class Student
+  attr_accessor :first_name, :last_name, :list_course
+  def initialize
+    @array = []
   end
-}
-puts add.call(5, 4, 3, 4, 5, 6, 7)
-puts sub1.call(9, 4, 5)
-puts multi.call(5, 4)
-puts div.call(20, 5, 2)
+
+  def full_name
+    puts "#{first_name} #{last_name} "
+  end
+
+  def add_course(course)
+    @array.push(course) unless @array.include?(course)
+  end
+
+  def remove_course(course)
+    @array.delete(course) if @array.include?(course)
+  end
+
+  def courses
+    puts "Course : #{@array}"
+  end
+end
+
+student = Student.new
+student.first_name = 'Chuong'
+student.last_name = 'Phu'
+student.full_name
+student.add_course('Toan')
+student.add_course('Toan')
+student.add_course('Hoa')
+student.add_course('Ha')
+student.remove_course('Toan')
+student.courses
+
