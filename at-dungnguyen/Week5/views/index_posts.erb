@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sinatra Training</title>
+  <meta>
+  <link rel="stylesheet" type="text/css" href="/styles/reset.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="container">
+      <div class="logo">
+        <a href="#"><img src="/images/logo.oy" alt="logo"></a>
+      </div>
+      <nav class="nav-bar">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="#">Home</a></li>
+          <li class="menu-item"><a href="/posts">Posts</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="page-main">
+    <div class="breadcrumbs">
+      <div class="container">
+        <ul class="breadcrumbs-list">
+          <li class="breadcrumbs-item"><a href="#">Home</a></li>
+          <li class="breadcrumbs-item"><span>Posts</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="content">
+      <div class="container">
+        <div class="content-header clearfix">
+          <h1>Danh sách các bài viết</h1>
+          <ul class="pagination">
+            <% 1.upto(@total_pages) do |i| %>
+              <li class="pagination-item"><a href="/posts?page=<%= i %>"><%= i %></a></li>
+            <% end %>
+          </ul>
+        </div>
+        <ul class="post-list">
+          <% if @posts.any? %>
+            <% @posts.each do |post| %>
+              <li class="post-item">
+                <div class="post-header clearfix">
+                  <span>Mã bài viết: <%= post["id"] %></span>
+                  <span>Bình luận: <%= post["comment_count"] %></span>
+                  <a href="/posts/<%= post['id'] %>" >Chi tiết</a>
+                  <form class="delete-cmt" action="/posts/<%= post['id'] %>" method='POST'>
+                    <input type='hidden' name='_method' value='DELETE'/>
+                    <button type='submit'>Xóa | </button>
+                  </form>
+                </div>
+                <div class="info">
+                  <%= post['content'] %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer">
+    <div class="container">
+      <p class="copy-right">Copyright &copy; 2018 by Nguyễn Quang Dũng<p>
+    </div>
+  </footer>
+</body>
+</html>

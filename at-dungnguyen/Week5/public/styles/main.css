@@ -1,0 +1,179 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.container::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.page-header {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+
+.logo {
+  float: left;
+}
+
+.nav-bar {
+  float: left;
+  margin-left: 30px;
+}
+
+.menu-item {
+  display: inline-block;
+  padding: 43px 10px;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.menu-item a {
+  color: gray;
+}
+
+.logo img {
+  vertical-align: middle;
+}
+
+.breadcrumbs {
+  padding: 20px 0;
+  background-color: rgb(50, 152, 200);
+}
+
+.breadcrumbs-item {
+  display: inline-block;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.breadcrumbs-list li+li::before {
+  content: ' > '
+}
+
+.content {
+  padding: 20px 0;
+}
+
+h1 {
+  float: left;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.pagination {
+  float: right;
+}
+
+.pagination-item {
+  display: inline-block;
+}
+
+.pagination-item a {
+  color: rgb(50, 152, 200);
+  vertical-align: middle;
+}
+
+.pagination li+li::before {
+  content: ' | '
+}
+
+.post-list {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.post-item {
+  margin: 10px 0;
+}
+
+.post-header {
+  padding: 10px;
+  border: 1px solid gray;
+  background-color: rgb(50, 152, 200);
+  color: #fff;
+}
+
+.post-header span {
+  float: left;
+  margin-right: 10px;
+}
+
+.post-header span+span::before {
+  content: ' | '
+}
+
+.post-header a {
+  float: right;
+}
+
+.content-main {
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.writer {
+  float: right;
+  font-size: 20px;
+}
+
+.comment-list {
+  padding: 10px 0;
+  border-top: 1px solid gray;
+}
+
+.comment-item {
+  margin-bottom: 10px;
+}
+
+.comment-header {
+  padding: 10px;
+  background-color: rgb(50, 152, 200);
+  border: 1px solid gray;
+  color: #fff;
+}
+
+.comment-main {
+  padding: 10px;
+  border: 1px solid gray;
+}
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.delete-cmt {
+  float: right;
+}
+
+.delete-cmt button {
+  background: none;
+  color:inherit;
+  border:none; 
+  padding:0!important;
+  font: inherit;
+}
+
+.info {
+  border: 1px solid gray;
+  padding: 10px;
+}
+
+.page-footer {
+  padding: 10px;
+  background-color: rgb(50, 152, 200);
+  border-top: 1px solid gray;
+}
+
+.copy-right {
+  padding: 20px 0;
+  color: #fff;
+}
