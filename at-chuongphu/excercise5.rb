@@ -49,3 +49,45 @@ student.add_course('Math')
 student.add_course('Programming')
 puts student.remove_course('New')
 puts student.list_course
+
+# ex 2
+class Dictionary
+  def initialize
+    @dict = []
+    @list = []
+  end
+
+  def add(vcb, decr)
+    return if @list.include?(vcb)
+    @list.push(vcb)
+    @dict.push(vcb => decr)
+  end
+
+  def size
+    @dict.size
+  end
+
+  def random
+    @dict.sample
+  end
+
+  def remove(vcb)
+    @dict.delete(vcb)
+    @list.delete(vcb)
+  end
+
+  def update(vcb, decr)
+    remove(vcb)
+    add(vcb, decr)
+  end
+end
+
+dict = Dictionary.new
+dict.add('Hello', 'Xin chao')
+dict.add('Goodbye', 'Tam biet')
+p dict.random
+p dict.size
+dict.add('Love', 'Yeu')
+dict.update('Hello', 'Chao')
+dict.remove('Hello')
+p dict
