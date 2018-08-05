@@ -1,10 +1,10 @@
 # ex1
 def non_repeat(str)
-  hash = Hash.new (0)
+  hash = Hash.new(0)
   arr = str.split('')
   arr.each { |alpha| hash[alpha] += 1 }
   num = hash.key(1)
-  num ? str.index(num) : -1 
+  num ? str.index(num) : -1
 end
 puts non_repeat('asiantech')
 
