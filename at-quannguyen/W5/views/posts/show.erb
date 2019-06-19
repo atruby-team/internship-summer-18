@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Show</title>
+  <link rel="stylesheet" type="text/css" href="<%= url('/style.css') %>">
+</head>
+<body>
+  <table id="customers">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Content Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= post['content'] %></td>
+        <td><%= post['name'] %></td>
+      </tr>
+    </tbody>
+  </table>
+  <h1 class="comments">Comments : </h1>
+  <ul>
+    <% comments.each do |e| %>
+      <li><%= e['content'] %></li>
+    <% end %>
+  </ul>
+</body>
+</html>

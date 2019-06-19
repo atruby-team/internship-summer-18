@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Post</title>
+  <link rel="stylesheet" type="text/css" href="<%= url('/style.css') %>">
+</head>
+<body>
+  <table id="customers">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>CONTENT</th>
+        <th>COMMENT COUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% posts.each do |e| %>
+        <tr>
+          <td><%= e['id'] %></td>
+          <td><%= e['content'] %></td>
+          <td><%= e['comment_count'] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <% if (current_page > 1 && total_page > 1) %>
+      <%= "<a href='./?page=#{current_page - 1}'>&laquo;</a>" %>
+    <% end %>
+
+    <% for i in 1..total_page %>
+      <% if (i == current_page) %>
+        <%= "<a class='active' href='#'>#{i}</span>" %>
+      <% else %>
+        <%= "<a href='./?page=#{i}'>#{i}</a>" %>
+      <% end %>
+    <% end %>
+
+    <% if (current_page < total_page && total_page > 1) %>
+      <%= "<a href='./?page=#{current_page + 1}'>&raquo;</a>" %>
+    <% end %>
+  </div>
+</body>
+</html>
