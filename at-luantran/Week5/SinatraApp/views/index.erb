@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>Sinatra App</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<boby>
+  <header class="page-header">
+
+  </header>
+  <main class="page-main">
+    <h1>Posts</h1>
+    <table class="table-main">
+      <thead class="table-header">
+        <tr>
+          <th>ID</th>
+          <th>Content</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody "table-boby">
+        <% @posts.each do |post| %>
+        <tr>
+          <td><%= post['id'] %></td>
+          <td><%= post['content'] %></td>
+          <td><a href="/posts/<%= post['id'] %>" >Detail</a></td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+    <div calss="pagination">
+      <ul class="pag-list">
+        <% 1.upto(@total_pages) do |x| %>
+          <li class="pag-item">
+            <a href="/posts?page=<%= x %>"><%= x %></a>
+          </li>
+        <%end%>
+      </ul>
+    </div>
+  </main>
+  <footer></footer>
+</body>
+</html>
