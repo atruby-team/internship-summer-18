@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post Detail</title>
+</head>
+<body>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Post ID</th>
+          <th>Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @post_detail['post_id'] %></td>
+          <td><%= @post_detail['content'] %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>Comment</div>
+  <ul>
+    <% @comments.each do |comment| %>
+    <li><%= comment[content] %></li>
+    <%= end %>
+  </ul>
+</body>
+</html>
